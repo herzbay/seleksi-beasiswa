@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Prediksi Beasiswa</title>
+  <meta name="description" content="Prediksi kelayakan penerima beasiswa berbasis data mahasiswa.">
+  <meta name="keywords" content="beasiswa, seleksi, sistem prediksi, ipk, organisasi, ukm">
+
+  <!-- Favicon -->
+  <link href="assets/img/person/logo-ubhinus.png" rel="icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .navbar {
+      background-color: #1a1a2e;
+    }
+
+    .navbar-brand, .nav-link {
+      color: white !important;
+    }
+
+    .nav-link:hover {
+      color: #ffc107 !important;
+    }
+
+    .hero {
+      position: relative;
+      background: url('images/background_selbes.jpg') no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+      min-height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    .hero h1 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+
+    .hero p {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .form-container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .spinner-border {
+      display: none;
+      margin: 20px auto;
+    }
+    
+    .navbar .btn {
+    transition: all 0.3s ease-in-out;
+    border-radius: 6px;
+    }
+
+    .navbar .btn.btn-danger:hover {
+    background-color: #c82333;
+    color: #fff;
+    }
+
+
+
+    footer {
+    text-align: center;
+    padding: 20px;
+    background: #16213e;
+    color: #fff;
+    margin-top: 40px;
+}
+.footer {
+    background: #2c2c3b; /* Kontras: biru gelap */
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.footer-logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffd700; /* Emas agar standout */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.social-icons a {
+    color: #4400ff;
+    font-size: 1.5em;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #fff;
+}
+
+.footer-copy {
+    font-size: 0.9em;
+    color: #aaa;
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Seleksi Beasiswa</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon text-white"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#form">Form</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-danger btn-sm text-white px-3 ms-2" href="index.html">
+                <i class="bi bi-box-arrow-right"></i> Keluar
+            </a>
+           </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content" data-aos="fade-up">
+      <h1 data-aos="fade-up" data-aos-delay="200">Selamat Datang di Seleksi Beasiswa</h1>
+      <p data-aos="fade-up" data-aos-delay="400">Cek kelayakan beasiswa dengan cepat, praktis, dan akurat.</p>
+      <a href="#form" class="btn btn-primary btn-lg mt-3" data-aos="zoom-in" data-aos-delay="600">Mulai Sekarang</a>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <section id="form" class="form-container" data-aos="fade-up" data-aos-delay="100">
+    <h4 class="mb-4 text-center fw-bold"><i class="bi bi-journal-check"></i> Formulir Seleksi Beasiswa</h4>
+
+    <div class="mb-3">
+      <label for="jarak" class="form-label">Jarak Tempat Tinggal ke Kampus (Km):</label>
+      <select class="form-select" id="jarak" required>
+        <option value="">-- Pilih --</option>
+        <option value="Jauh">Jauh</option>
+        <option value="Dekat">Dekat</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="organisasi" class="form-label">Ikut Organisasi:</label>
+      <select class="form-select" id="organisasi" required>
+        <option value="">-- Pilih --</option>
+        <option value="Ikut">Ikut</option>
+        <option value="Tidak">Tidak</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="ukm" class="form-label">Ikut UKM:</label>
+      <select class="form-select" id="ukm" required>
+        <option value="">-- Pilih --</option>
+        <option value="Ikut">Ikut</option>
+        <option value="Tidak">Tidak</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="ipk" class="form-label">IPK:</label>
+      <input type="number" step="0.01" min="0" max="4" class="form-control" id="ipk" placeholder="Contoh: 3.75" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="penghasilan" class="form-label">Penghasilan Orang Tua:</label>
+      <select class="form-select" id="penghasilan" required>
+        <option value="">-- Pilih --</option>
+        <option value="Rendah">Rendah (Rp.0 - Rp.1.000.000)</option>
+        <option value="Sedang">Sedang (Di atas Rp.1.000.000)</option>
+        <option value="Tinggi">Tinggi (Di atas Rp.5.000.000)</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tanggungan" class="form-label">Jumlah Tanggungan Orang Tua:</label>
+      <input type="number" class="form-control" id="tanggungan" min="1" placeholder="Contoh: 3" required>
+    </div>
+
+    <button onclick="submitForm()" class="btn btn-success w-100"><i class="bi bi-send-check"></i> Submit</button>
+
+    <div class="text-center">
+      <div id="loading" class="spinner-border text-primary mt-3" role="status"></div>
+      <div id="result" class="mt-3 fw-bold"></div>
+      <button id="exportPdfBtn" onclick="showExportModal()" class="btn btn-outline-primary mt-3" style="display: none;"><i class="bi bi-file-earmark-pdf"></i> Export ke PDF</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+        <div class="footer-logo">🎓 Seleksi Beasiswa</div>
+        <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p class="footer-copy">© 2025 Seleksi Beasiswa | Dibuat dengan ❤️ oleh GOX Group</p>
+    </div>
+  </footer>
+
+  <!-- JS Libs -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Custom Script -->
+  <script>
+    AOS.init();
+
+    async function submitForm() {
+      document.getElementById("loading").style.display = "inline-block";
+      document.getElementById("result").innerText = "";
+      document.getElementById("exportPdfBtn").style.display = "none";
+
+      const ipkInput = document.getElementById("ipk").value.replace(',', '.');
+      const ipk = parseFloat(ipkInput);
+      const tanggungan = parseInt(document.getElementById("tanggungan").value);
+
+      if (isNaN(ipk) || ipk < 0 || ipk > 4) {
+        alert("IPK harus antara 0.00 dan 4.00");
+        document.getElementById("loading").style.display = "none";
+        return;
+      }
+      if (isNaN(tanggungan) || tanggungan < 1) {
+        alert("Jumlah tanggungan minimal 1");
+        document.getElementById("loading").style.display = "none";
+        return;
+      }
+
+      const data = {
+        "Jarak Tempat Tinggal kekampus (Km)": document.getElementById("jarak").value,
+        "Ikut Organisasi": document.getElementById("organisasi").value,
+        "Ikut UKM": document.getElementById("ukm").value,
+        "IPK": ipk,
+        "Penghasilan": document.getElementById("penghasilan").value,
+        "Tanggungan": tanggungan
+      };
+
+      try {
+        const response = await fetch('http://P4r4Dise.pythonanywhere.com/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error("Terjadi kesalahan pada server");
+
+        const result = await response.json();
+        const prediction = result.Prediction;
+
+        const resultElement = document.getElementById("result");
+        resultElement.innerText = "Prediksi: " + prediction;
+        resultElement.style.color = prediction.includes("Layak") ? "green" : "red";
+
+        window.lastPrediction = { ...data, result: prediction };
+
+        document.getElementById("exportPdfBtn").style.display = "inline-block";
+      } catch (error) {
+        document.getElementById("result").innerText = "Error: " + error.message;
+        document.getElementById("result").style.color = "red";
+      } finally {
+        document.getElementById("loading").style.display = "none";
+      }
+    }
+
+    function showExportModal() {
+  // Reset input
+    document.getElementById("namaPdf").value = "";
+    document.getElementById("nimPdf").value = "";
+    document.getElementById("prodiPdf").value = "";
+
+    const modal = new bootstrap.Modal(document.getElementById("modalMahasiswa"));
+    modal.show();
+    }
+
+    function confirmExport() {
+    const nama = document.getElementById("namaPdf").value.trim();
+    const nim = document.getElementById("nimPdf").value.trim();
+    const prodi = document.getElementById("prodiPdf").value.trim();
+
+    if (!nama || !nim || !prodi) {
+        alert("Harap lengkapi semua data mahasiswa sebelum ekspor PDF.");
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const data = window.lastPrediction;
+
+    let y = 10;
+
+    // Judul
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("Laporan Hasil Prediksi Beasiswa", 105, y, { align: "center" });
+    y += 10;
+
+    // Garis pemisah
+    doc.setLineWidth(0.5);
+    doc.line(10, y, 200, y);
+    y += 8;
+
+    // Info Mahasiswa
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text("Data Mahasiswa", 10, y); y += 6;
+    doc.setLineWidth(0.1);
+    doc.line(10, y, 200, y); y += 6;
+
+    doc.text("Nama", 15, y);        doc.text(`: ${nama}`, 60, y); y += 6;
+    doc.text("NIM", 15, y);         doc.text(`: ${nim}`, 60, y); y += 6;
+    doc.text("Program Studi", 15, y); doc.text(`: ${prodi}`, 60, y); y += 10;
+
+    // Data Prediksi
+    doc.text("Data Input Mahasiswa", 10, y); y += 6;
+    doc.line(10, y, 200, y); y += 6;
+
+    const labels = {
+        "Jarak Tempat Tinggal kekampus (Km)": "Jarak ke Kampus",
+        "Ikut Organisasi": "Ikut Organisasi",
+        "Ikut UKM": "Ikut UKM",
+        "IPK": "IPK",
+        "Penghasilan": "Penghasilan Orang Tua",
+        "Tanggungan": "Jumlah Tanggungan"
+    };
+
+    Object.entries(data).forEach(([key, value]) => {
+        if (key === "result") return;
+        doc.text(labels[key], 15, y);
+        doc.text(`: ${value}`, 60, y);
+        y += 6;
+    });
+
+    y += 10;
+    doc.line(10, y, 200, y); y += 6;
+
+    // Hasil Prediksi
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.setTextColor(data.result.includes("Layak") ? 0 : 200, 0, 0);
+    doc.text(`Hasil Prediksi: ${data.result}`, 15, y);
+
+    // Simpan
+    doc.save(`prediksi_${nim}.pdf`);
+
+    // Tutup modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalMahasiswa"));
+    modal.hide();
+    }
+  </script>
+
+  <!-- Modal Input Mahasiswa -->
+<div class="modal fade" id="modalMahasiswa" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Isi Data Mahasiswa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="namaPdf" class="form-label">Nama Mahasiswa</label>
+          <input type="text" class="form-control" id="namaPdf" placeholder="Contoh: Budi Santoso">
+        </div>
+        <div class="mb-3">
+          <label for="nimPdf" class="form-label">NIM</label>
+          <input type="text" class="form-control" id="nimPdf" placeholder="Contoh: 202101234">
+        </div>
+        <div class="mb-3">
+          <label for="prodiPdf" class="form-label">Program Studi</label>
+          <input type="text" class="form-control" id="prodiPdf" placeholder="Contoh: Teknik Informatika">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button class="btn btn-primary" onclick="confirmExport()">Unduh PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
